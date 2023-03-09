@@ -9,13 +9,11 @@ import urllib3
 # from proj.Aclient import Aclient
 from proj.OracleClient import OracleClient
 from flask_apscheduler import APScheduler
-from dotenv import load_dotenv
 from proj.Aclient import Aclient
 
 # Flask constructor takes the name of
 # current module (__name__) as argument.
 NODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1"
-load_dotenv()
 
 escapedPassword = os.environ.get("DB_PASSWORD")
 sqldialect = os.environ.get("DB_DIALECT")
