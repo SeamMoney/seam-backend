@@ -128,6 +128,9 @@ class Oracle(db.Model):
     price = db.Column(db.Float)
     timestamp=db.Column(db.DateTime)
 
+    # def get_spot_prices(self):
+        
+
 
 class Dapp(db.Model):
     def get_id(self):

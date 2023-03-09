@@ -7,3 +7,4 @@ flask-cors
 pythclient  
 Flask-APScheduler
 requests
+dotenv

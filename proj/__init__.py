@@ -9,12 +9,13 @@ import urllib3
 # from proj.Aclient import Aclient
 from proj.OracleClient import OracleClient
 from flask_apscheduler import APScheduler
-
+from dotenv import load_dotenv
 from proj.Aclient import Aclient
 
 # Flask constructor takes the name of
 # current module (__name__) as argument.
 NODE_URL = "https://fullnode.mainnet.aptoslabs.com/v1"
+load_dotenv()
 
 escapedPassword = os.environ.get("DB_PASSWORD")
 sqldialect = os.environ.get("DB_DIALECT")
@@ -33,9 +34,9 @@ sqlUrl = sqlalchemy.engine.url.URL.create(
     query={"ssl_ca": "/etc/ssl/cert.pem"},
 )
 from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
-from proj.models import *
+
 app = Flask(__name__)
+db = SQLAlchemy()
 app.config['SECRET_KEY'] = key
 app.config['SSL'] = ('cert.pem', 'key.pem')
 app.config['SQLALCHEMY_DATABASE_URI'] = sqlUrl
@@ -43,7 +44,7 @@ app.config['SCHEDULER_API_ENABLED'] = True
 scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
-# db.init_app(app)
+db.init_app(app)
 
 aClient = Aclient(NODE_URL)
 
@@ -78,13 +79,10 @@ def oracle_update():
                 db.session.add(o)
         db.session.commit()
 
-from . import User, Wallet, Dapp, Oracle
+# from . import User, Wallet, Dapp, Oracle
 
-# with app.app_context():
-#     user = User()
-#     wallet = Wallet()
-    # dapp = Dapp()
-    # db.create_all()
+
+from .models import *
 
 # def spot_prices('/spot_prices'):
 # main driver function
@@ -92,6 +90,10 @@ from . import User, Wallet, Dapp, Oracle
 
 	# run() method of Flask class runs the application
 	# on the local development server.
-app.run(host='0.0.0.0', port=3001)
-
+# app.run(host='0.0.0.0', port=3001)
+# with app.app_context():
+#     user = User()
+#     wallet = Wallet()
+#     dapp = Dapp()
+#     db.create_all()
 
