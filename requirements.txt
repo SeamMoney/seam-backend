@@ -1,9 +1,0 @@
-aptos-sdk
-flask
-flask-cors
-flask-jwt-extended
-flask-sqlalchemy
-flask-cors
-pythclient  
-Flask-APScheduler
-requests
